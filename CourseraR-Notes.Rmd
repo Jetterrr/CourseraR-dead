@@ -242,13 +242,13 @@ which allows you to specify a 'units' parameter.
 
 # Loop functions
 
-`lapply`: Loop over a list and evaluate a function on each element
+`lapply`: Loop over a list and evaluate a function on each element *e.g.* `lapply(data, fun)`
 
-`sapply`: Same as `lapply` but try to simplify the result
+`sapply`: Same as `lapply` but try to simplify the result 
 
-`apply`: Apply the function over the margins of an array
+`apply`: Apply the function over the margins of an array *e.g.* `apply(data, dimension, fun)`
 
-`tapply`: Apply a function over the subsets of a vector
+`tapply`: Apply a function over the subsets of a vector 
 
 `mapply`: Multivariate function of `lapply`
 
