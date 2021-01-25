@@ -242,16 +242,51 @@ which allows you to specify a 'units' parameter.
 
 # Loop functions
 
-`lapply`: Loop over a list and evaluate a function on each element *e.g.* `lapply(data, fun)`
+### 'The Split-Apply-Combine Strategy for Data Analysis'
+
+`lapply`: Loop over a list and evaluate a function on each element >> `lapply(data, fun)`
 
 `sapply`: Same as `lapply` but try to simplify the result 
 
-`apply`: Apply the function over the margins of an array *e.g.* `apply(data, dimension, fun)`
+`apply`: Apply the function over the margins of an array >> `apply(data, dimension, fun)`
 
-`tapply`: Apply a function over the subsets of a vector 
+`mapply`: Multivariate function of `lapply` 
+*e.g.* `list(rep(1,4), rep(2,3), rep(3,2), rep(4,1))` can be done with `mapply(rep, 1:4, 4:1)` 
 
-`mapply`: Multivariate function of `lapply`
+`tapply`: Apply a function over the subsets of a vector >> `tapply(data, factor, fun)`
 
+`split`: Takes a vector and splits it according to a factor(similarly to `tapply` but without applying any 
+type of summary statistics )
+
+
+
+# Debbuging tools
+
+## Something's wrong
+
+`message`: Generic notification; function execution continues
+
+`warning`: Something went wrong but is not fatal; execution of the function is not stopped
+
+`error`: Fatal problem has occurred; execution is halted; produced by the stop function
+
+`condition`: A generic concept indicating that something can occur; programmers create their own conditions
+
+
+## Primary Debugging Tools
+
+`traceback`: Prints out the function call stack after an error occurs and allows to know in which function the
+error occurred
+
+`recover`: Allows you to modify the error default behavior so that you can browse the function whenever an
+error occurs
+
+`debug`: Flags a function for debug mode which allows you to step through the function one expression/line 
+at a time
+
+`browser`: Suspends the execution of a function wherever it is called and puts the function in debug mode
+
+`trace`: Allows to insert debugging mode into a function at specific places without altering the function code 
 
 
 
