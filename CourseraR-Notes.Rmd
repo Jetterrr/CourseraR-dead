@@ -73,22 +73,14 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ![](C:\Users\Daniel Oliveira\Documents\Biology\Bioinformatics\R Training\CourseraR\bigdata.png)
 
-# Practical R Exercises in swirl
+# Getting started with R
 
+## Directories
 
-* install.packages("swirl")
-
-* library(swirl)
-
-* install_from_swirl("R Programming")
-
-* swirl()
 
 * getwd()
 
 * setwd()
-
-* ls()
 
 * dir()
 
@@ -112,33 +104,28 @@ knitr::opts_chunk$set(echo = TRUE)
 
 * file.copy()
 
---
 
-* length(x)
+## Looking at data
 
+`ls`: List the variables in the environment
 
-* x <- dim(x,y) >> Creates matrix
+`nrow` & `ncol`: Number of rows/columns in a dataframe (`dim` for both)
 
+`object.size`: How much space the object occupies in memory
 
-* attributes(x)
+`names`: Names of columns (variables)
 
---
+`head` & `tail`: Preview the top/bottom of the dataset
 
-* matrix(data, nrow,ncol)
+`summary`: Provides different output for each variable, depending on its class. For **numeric** data summary() 
+displays the minimum, 1st quartile, median, mean, 3rd quartile, and maximum. These values help us understand 
+how the data are distributed. For **categorical** variables (called 'factor' variables in R), 
+summary() displays the number of times each value (or 'level') occurs in the data.
 
-* cbind({vector with row names}, matrix) >> Combine columns
-
-* colnames(data.frame) = {vector with column names} >> Names of columns
-
-* data.frame({vector with row names}, matrix) >> Allows Text and Numbers
-
-
-
-# Types of Data Science Questions
+`str`: Shows the structure of the data. 
 
 
 ## Control Structures - if/else
-
 
 
 if(condition) {
@@ -258,6 +245,20 @@ which allows you to specify a 'units' parameter.
 `split`: Takes a vector and splits it according to a factor(similarly to `tapply` but without applying any 
 type of summary statistics )
 
+`sprintf` originally comes from C and all formatting rules are taken from it as well
+
+*e.g.*
+sprintf("%03d", 7)
+"%03d" is a formatting string, which specifies how 7 will be printed.
+
+d stands for decimal integer (not double!), so it says there will be no floating point or anything like that, 
+just a regular integer.
+
+3 shows how many digits will the printed number have. More precisely, the number will take at least 3 digits: 
+7 will be __7 (with spaces instead of underscores), but 1000 will remain 1000, as there is no way to write 
+this number with just 3 digits.
+
+0 before 3 shows that leading spaces should be replaced by zeroes. Try experimenting with sprintf("%+3d", 7), sprintf("%-3d", 7) to see other possible modifiers (they are called flags).
 
 
 # Debbuging tools
