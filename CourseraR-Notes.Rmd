@@ -306,11 +306,11 @@ download.file()
 read.**file type**()
 
 
-## dplyr
+## Manipulating data with dplyr
 
 
 The first step of working with data in dplyr is to load the data into what the package authors call a 
-'data frame tbl' or 'tbl_df', using `tbl_df`.
+'data frame tibble', using `tibble::as_tibble()`
 The main advantage to using a tbl_df over a regular data frame is the printing.
 
 
@@ -354,4 +354,60 @@ in the input. It will contain one column for each grouping variable and one colu
 statistics that you have specified.
 
 
-                                    ** CONTINUE SWIRL LESSON BEFORE WEEK 2**
+## Grouping and chaining with dplyr
+
+
+### Group by one or more variables
+
+`group_by()`  takes an existing tbl and converts it into a grouped tbl where operations are performed 
+"by group". `ungroup()` removes grouping.
+
+Grouping data by variable, allows to summarize data by each value of that variable.
+
+**e.g.** 
+
+
+```{r echo=T, error=F, warning=F, message= F, results='hide'}
+library(dplyr)
+data("iris")
+iris_tbl <- tibble(iris)
+
+by_species <- group_by(iris, Species)
+
+plant_sum <- summarize(by_species,
+                      count = n(),
+                      unique = n_distinct(Species),
+                      avg_Petal.Width = mean(Petal.Width))
+
+```
+```{r echo=T}
+plant_sum
+```
+
+
+### Chaining
+
+Chaining makes use of the `%>%` (*pipe*) operator. With this operator, you can chain together different 
+commands without having to provide the base data/vector argument for each one.
+
+**e.g.**
+
+
+```{r echo=T, error=F, warning=F, message= F, results='hide'}
+myresult <-
+iris_tbl %>% group_by(Species) %>% 
+  summarize(
+              count = n(),
+              unique = n_distinct(Species),
+              avg_Petal.Width = mean(Petal.Width)) %>% 
+  filter(avg_Petal.Width > 0) %>%
+  arrange(desc(avg_Petal.Width))
+
+```
+```{r echo=T}
+myresult
+```
+
+              *** PART 3 OF SWIRL***
+
+                   
