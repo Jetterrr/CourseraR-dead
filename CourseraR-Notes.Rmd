@@ -408,6 +408,56 @@ iris_tbl %>% group_by(Species) %>%
 myresult
 ```
 
-              *** PART 3 OF SWIRL***
 
+## Tidy data
+
+Tidy data is formatted in a standard way that facilitates exploration and analysis and works seamlessly 
+with other tidy data tools. Specifically, tidy data satisfies three conditions:
+
+1. Each variable forms a column
+ 
+2. Each observation forms a row
+ 
+3. Each type of observational unit forms a table
+
+
+### Gather columns into key-value pairs
+
+Development on `gather()` is incomplete, and for new code we recommend switching to `pivot_longer()`, 
+which is easier to use, more featureful, and still under active development. 
+`df %>% gather("key", "value", x, y, z)` is equivalent to 
+`df %>% pivot_longer(c(x, y, z), names_to = "key", values_to = "value")`. 
+
+`pivot_longer()` "lengthens" data, increasing the number of rows and decreasing the number of columns. 
+The inverse transformation is `pivot_wider()`.
+
+### Separate a character column into multiple columns with a regular expression or numeric locations
+
+Given either a regular expression or a vector of character positions, `separate()` turns a single character 
+column into multiple columns. Unless you request otherwise with the 'sep' argument, it splits on 
+non-alphanumeric values. In other words, it assumes that the values are separated by something other than a 
+letter or number.
+
+
+### Spread a key-value pair across multiple columns
+
+Development on `spread()` is complete, and for new code we recommend switching to `pivot_wider()`, which is 
+easier to use, more featureful, and still under active development. `df %>% spread(key, value)` is equivalent 
+to `df %>% pivot_wider`(names_from = key, values_from = value)`. 
+
+`pivot_wider()` "widens" data, increasing the number of columns and decreasing the number of rows. 
+The inverse transformation is `pivot_longer()`.
+
+
+### Efficiently bind multiple data frames by row and column
+
+
+`bind_rows` and `bind_cols` are an efficient implementation of the common pattern of `do.call(rbind, dfs)` or 
+`do.call(cbind, dfs)` for binding many data frames into one.
+
+
+                                          *** DATES AND TIMES WITH LUDIBRIATE ***
+
+
+      
                    
