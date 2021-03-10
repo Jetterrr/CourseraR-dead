@@ -593,6 +593,70 @@ intuitive to use. Its default mode makes many choices for you but you can still 
 is based on a "grammar of graphics" (hence the gg in the name), so you can control the aesthetics of your 
 plots. For instance, you can plot conditioning graphs and panel plots as we did in the lattice example.
 
+The ggplot2 package "is composed of a set of independent components that can be composed in many different 
+ways. You can create new graphics that are precisely tailored for your problem." These components include 
+aesthetics which are attributes such as colour, shape, and size, and geometric objects or geoms such as 
+points, lines, and bars.
+
+There are several basic components to a ggplot graph. Obviously, there's a DATA FRAME which contains the data
+you're trying to plot. Then the AESTHETIC MAPPINGS determine how data are mapped to color, size, etc. The 
+GEOMS (geometric objects) are what you see in the plot (points, lines, shapes) and FACETS are the panels used
+in conditional plots. STATS are statistical transformations such as binning, quantiles, and smoothing which 
+ggplot2 applies to the data. | SCALES show what coding an aesthetic map uses (for example, male = red, 
+female = blue). Finally, the plots are depicted on a COORDINATE SYSTEM. When you use `qplot` these are taken 
+care of for you.
+
+There are two main ways to construct graphs with ggplot2. The most used method which should be sufficient 
+for most applications in using `qplot` (quick-plot). With this, R will build a more-or-less standardized
+graph with all the basic components (legend, axis titles, etc) and very little room for customization. 
+With `ggplot` you are able to create a graph "from scratch" by modifying its core attributes. As in the base 
+plotting system (and in contrast to the lattice system), when building plots with ggplot2, the plots are built
+up in layers, maybe in several steps. You can plot the data, then overlay a summary (for instance, a 
+regression line or smoother) and then add any metadata and annotations you need.
+
+For example, to build similar graphs using each system:
+
+``qplot``
+```{r echo=T, error=F, warning=F, message= F, results='hide'}
+library(ggplot2)
+```
+
+```{r echo=T, error=F, warning=F, message= F}
+qplot(displ, hwy, data=mpg, geom=c("point", "smooth"), facets=.~drv)
+```
+
+``ggplot``
+
+```{r echo=T, error=F, warning=F, message= F}
+g <- ggplot(mpg, aes(displ, hwy))
+
+##Add each element as a layer to the base mapping
+g+geom_point()+geom_smooth(method="lm")+facet_grid(.~drv) 
+
+```
+
+Each of the “geom” functions (e.g., _point and _smooth) has options to modify it. Also, the function `theme()`
+can be used to modify aspects of the entire plot, e.g. the position of the legend. Two standard appearance 
+themes are included in ggplot. These are `theme_gray()` which is the default theme (gray background with white 
+grid lines) and `theme_bw()` which is a plainer (black and white) color scheme.
+
+This system, however, allows for further customization of each component.
+
+**e.g.:**
+```{r echo=T, error=F, warning=F, message= F}
+g+geom_point(size=4, alpha=1/2, aes(color=drv))+
+  geom_smooth(size=4, linetype=3,method="lm", se=FALSE)+
+  labs(title = "Swirl Rules!",x="Displacement", y="Hwy Mileage")
+
+
+```
+
+
+
+
+**NOTE**: The expression '~' is shorthand for the number of rows (to the left of the ~) and number of columns 
+(to the right of the ~) in multi-facet graph. A . indicates 1 row and variables can be used instead of intergers.
+
 
 ## Working with colors
 
