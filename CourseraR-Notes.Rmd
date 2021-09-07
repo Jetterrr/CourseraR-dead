@@ -68,11 +68,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Experimental design
 
-![](C:\Users\Daniel Oliveira\Documents\Biology\Bioinformatics\R Training\CourseraR\expdesign.png)
+![](C:\Users\PC\Documents\Biology\Bioinformatics\R Training\CourseraR\expdesign.png)
 
 # Big Data
 
-![](C:\Users\Daniel Oliveira\Documents\Biology\Bioinformatics\R Training\CourseraR\bigdata.png)
+![](C:\Users\PC\Documents\Biology\Bioinformatics\R Training\CourseraR\bigdata.png)
 
 # Getting started with R
 
@@ -457,24 +457,7 @@ The inverse transformation is `pivot_longer()`.
 `do.call(cbind, dfs)` for binding many data frames into one.
 
 
-### Getting data from the Web
 
-The `con` command creates a connection to a URL and `readLines` can then be used to obtain the content of the page (remember to close the connection).
-
-Data can also be obtained from a dedicated API (for Twitter, Facebook,...)
-
-The XML package can be useful in parsing the information from the html format, **e.g.:**
-
-```{r echo=T, error=F, warning=F, message= F, results='hide'}
-library(XML)
-url <- "https://www.researchgate.net/profile/Daniel_Oliveira69"
-html <- htmlTreeParse(url,useInternalNodes=T)
-xpathSApply(html,"//title",xmlValue)
-```
-```{r echo=T}
-
-```
-                            
 # Exploratory Data Analysis
 
 ## Exploratory Graphs
@@ -683,8 +666,54 @@ the colors increase in intensity. The middle display shows the qualitative palet
 collections of random colors. These might be used to distinguish factors in your data.
 
 
-![](C:\Users\Daniel Oliveira\Documents\Biology\Bioinformatics\R Training\CourseraR\rclrbrwr.png)
+![](C:\Users\PC\Documents\Biology\Bioinformatics\R Training\CourseraR\rclrbrwr.png)
 
 
-      
-                   
+## Hierarchical Clustering
+
+Hierarchical clustering is an agglomerative, or bottom-up, approach. 
+From Wikipedia (http://en.wikipedia.org/wiki/Hierarchical_clustering), we learn that in this method, "each observation 
+starts in its own cluster, and pairs of clusters are merged as one moves up the hierarchy." This means that we'll find 
+the closest two points and put them together in one cluster, then find the next closest pair in the updated picture, 
+and so forth.
+We'll repeat this process until we reach a reasonable stopping place.
+
+**e.g.:**
+```{r echo=T, error=F, warning=F, message= F}
+
+hcmt<-hclust(dist(mtcars))
+plot(as.dendrogram(hcmt))
+
+```
+## K-means clustering
+As we said, k-means is a partioning approach which requires that you first guess how many clusters you have
+(or want). Once you fix this number, you randomly create a "centroid" (a phantom point) for each cluster and assign 
+each point or observation in your dataset to the centroid to which it is closest. Once each point is assigned a 
+centroid, you readjust the centroid's position by making it the average of the points assigned to it.
+
+Once you have repositioned the centroids, you must recalculate the distance of the observations to the centroids and 
+reassign any, if necessary, to the centroid closest to them. Again, once the reassignments are done, readjust the 
+positions of the centroids based on the new cluster membership. The process stops once you reach an iteration in which 
+no adjustments are made or when you've reached some predetermined maximum number of iterations.
+When it's finished k-means clustering returns a final position of each cluster's centroid as well as the
+assignment of each data point or observation to a cluster.
+
+you'll be relieved to hear that R provides a command to do all this work for you. Unsurprisingly it's called 
+kmeans and, although it has several parameters, we'll just mention four.These are x, (the numeric matrix of data),
+centers, iter.max, and nstart. The second of these (centers) can be either a number of clusters or a set of initial
+centroids. The third, iter.max, specifies the maximum number of iterations to go through, and nstart is the number of
+random starts you want to try if you specify centers as a number.
+
+**e.g.:**
+```{r echo=T, error=F, warning=F, message= F}
+
+dataFrame <- read.csv("C:\\Users\\PC\\Documents\\Biology\\Bioinformatics\\R Training\\CourseraR\\kmeansdataframe.csv")
+x <- dataFrame$x
+y <- dataFrame$y
+
+kmObj <- kmeans(dataFrame, 3)
+
+plot(x,y,col=kmObj$cluster, pch=19)
+
+
+```         
